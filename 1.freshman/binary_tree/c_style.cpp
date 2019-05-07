@@ -7,6 +7,7 @@
 //
 #include <stdio.h>
 #include <iostream>
+#include <queue>
 
 using namespace std;
 
@@ -66,6 +67,29 @@ void postOrder (TreeNode* node)
 }
 
 
+//  BFS
+//  层先遍历
+void levelOrder (TreeNode* node)
+{
+    queue<TreeNode*> my_queue;          //  implement by queue structure
+    my_queue.push(node);
+    while (!my_queue.empty()) {         //  if my_queue is not empty
+        TreeNode* front = my_queue.front();     //  get the front pointer
+        cout << front->data << " ";             //  print
+        my_queue.pop();                         //  deQueue
+        
+        if (front->left != nullptr) {         //  if left is not NULL, enQueue
+            my_queue.push(front->left);
+        }
+        if (front->right != nullptr) {        //  if right is not NULL, enQueue
+            my_queue.push(front->right);
+        }
+    }
+    cout << endl;
+}
+
+
+
 //  二叉树node中是否包含value节点
 bool contains(TreeNode* node, int value)
 {
@@ -103,6 +127,8 @@ int main(int argc, const char * argv[]) {
     postOrder(root);
     cout << endl << endl;
     
+    cout << "BFS" << endl;
+    levelOrder(root);
     
     cout << contains(root, 100) << endl;
     cout << contains(root, 17) << endl;
